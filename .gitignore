@@ -1,0 +1,7 @@
+/ampsFiles/
+/.gradle/
+/build/
+/.idea/
+/classes/
+*.gz
+*.iml
