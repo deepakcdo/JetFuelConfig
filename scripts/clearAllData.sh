@@ -1,1 +1,2 @@
-rm -rf ampsFiles
+rm -rf ../ampsFiles
+rm *.tar.gz
