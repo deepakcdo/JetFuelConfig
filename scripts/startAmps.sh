@@ -1,3 +1,4 @@
-current/bin/ampServer primary/LDN-Primary.xml &
-current/bin/ampServer backup/LDN-Backup.xml &
+cd ../
+current/bin/ampServer config/LDN-Primary.xml &
+current/bin/ampServer config/LDN-Backup.xml &
 

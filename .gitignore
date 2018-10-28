@@ -5,3 +5,5 @@
 /classes/
 *.gz
 *.iml
+current
+/AMPS-*-Release-Linux/
