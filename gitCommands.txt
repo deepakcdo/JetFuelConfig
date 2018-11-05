@@ -9,5 +9,6 @@ git checkout filename
 git pull
 
 //commit and push
+git add <file>
 git commit -m "Updated config"
 git push origin master
