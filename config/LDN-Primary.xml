@@ -36,14 +36,14 @@
             <Name>websocket-any</Name>
             <Protocol>websocket</Protocol>
             <Type>tcp</Type>
-            <InetAddr>9008</InetAddr>
+            <InetAddr>8008</InetAddr>
         </Transport>
     </Transports>
 
     <Logging>
         <Target>
             <Protocol>file</Protocol>
-            <FileName>ampsFiles/LDN-PRIMARY/logs/%Y%m%d-%H%M%S-%n.log</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/logs/%Y%m%d-%H%M%S-%n.log</FileName>
             <RotationThreshold>200MB</RotationThreshold>
             <Level>info</Level>
         </Target>
@@ -52,26 +52,82 @@
     <SOW>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>JETFUEL_EXECUTE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>600m</Expiration>
+            <Enrichment>
+                <Field>'LDN-PRIMARY' as /AmpsInstanceOwner</Field>
+            </Enrichment>
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>JETFUEL_EXECUTE_BUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>25h</Expiration>
             <Enrichment>
-                <Field>IF(/AmpsInstanceOwner IS NULL, 'LDN-PRIMARY', /AmpsInstanceOwner OF PREVIOUS) as /AmpsInstanceOwner</Field>
+                <Field>IF(/AmpsInstanceOwner OF PREVIOUS IS NULL, IF(/CurrentState OF CURRENT == 'RequestNew',
+                    'LDN-PRIMARY', /AmpsInstanceOwner OF CURRENT), /AmpsInstanceOwner OF PREVIOUS) as /AmpsInstanceOwner
+                </Field>
             </Enrichment>
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <Topic>JETFUEL_EXECUTE_STATS</Topic>
+            <MessageType>json</MessageType>
+            <Expiration>365d</Expiration>
+            <Preprocessing>
+                <Field>REGEXP_REPLACE(/MsgCreationTime,"T.*","") as /Date</Field>
+            </Preprocessing>
+            <Enrichment>
+                <Field>IF(/CurrentState OF CURRENT == 'RequestNew',IF(/RequestNewCount OF PREVIOUS IS NULL, 1,
+                    (/RequestNewCount OF PREVIOUS) + 1), /RequestNewCount OF PREVIOUS) as /RequestNewCount
+                </Field>
+                <Field>IF(/CurrentState OF CURRENT == 'Completed',IF(/CompletedCount OF PREVIOUS IS NULL, 1,
+                    (/CompletedCount OF PREVIOUS) + 1), /CompletedCount OF PREVIOUS) as /CompletedCount
+                </Field>
+                <Field>IF(/CurrentState OF CURRENT == 'Error', IF(/ErrorCount OF PREVIOUS IS NULL, 1, (/ErrorCount OF
+                    PREVIOUS) + 1), /ErrorCount OF PREVIOUS) as /ErrorCount
+                </Field>
+                <Field>IF(/CurrentState OF CURRENT == 'Timeout', IF(/TimeoutCount OF PREVIOUS IS NULL, 1, (/TimeoutCount
+                    OF PREVIOUS) + 1), /TimeoutCount OF PREVIOUS) as /TimeoutCount
+                </Field>
+                <Field>IF(/CurrentState OF CURRENT == 'RequestCancelSub', IF(/RequestCancelSubCount OF PREVIOUS IS NULL,
+                    1, (/RequestCancelSubCount OF PREVIOUS) + 1), /RequestCancelSubCount OF PREVIOUS) as
+                    /RequestCancelSubCount
+                </Field>
+                <Field>IF(/CurrentState OF CURRENT == 'SubCancelled', IF(/SubCancelledCount OF PREVIOUS IS NULL, 1,
+                    (/SubCancelledCount OF PREVIOUS) + 1), /SubCancelledCount OF PREVIOUS) as /SubCancelledCount
+                </Field>
+                <Field>IF(/CurrentState OF CURRENT == 'SubUpdate', IF(/SubUpdateCount OF PREVIOUS IS NULL, 1,
+                    (/SubUpdateCount OF PREVIOUS) + 1), /SubUpdateCount OF PREVIOUS) as /SubUpdateCount
+                </Field>
+                <Field>IF(/CurrentState OF CURRENT == 'SubActive', IF(/SubActiveCount OF PREVIOUS IS NULL, 1,
+                    (/SubActiveCount OF PREVIOUS) + 1), /SubActiveCount OF PREVIOUS) as /SubActiveCount
+                </Field>
+                <Field>IF(/MsgCreationTime == 1, NULL, NULL) AS /MsgCreationTime HINT OPTIONAL</Field>
+                <Field>IF(/MsgCreationName == 1, NULL, NULL) AS /MsgCreationName HINT OPTIONAL</Field>
+                <Field>IF(/FunctionCallerHostName == 1, NULL, NULL) AS /FunctionCallerHostName HINT OPTIONAL</Field>
+                <Field>IF(/CurrentState == 1, NULL, NULL) AS /CurrentState HINT OPTIONAL</Field>
+                <Field>IF(/ID == 1, NULL, NULL) AS /ID HINT OPTIONAL</Field>
+                <Field>IF(/FunctionInitiatorName == 1, NULL, NULL) AS /FunctionInitiatorName HINT OPTIONAL</Field>
+                <Field>IF(/FunctionParameters == 1, NULL, NULL) AS /FunctionParameters HINT OPTIONAL</Field>
+                <Field>IF(/AmpsInstanceOwner == 1, NULL, NULL) AS /AmpsInstanceOwner HINT OPTIONAL</Field>
+                <Field>IF(/CurrentStateMsg == 1, NULL, NULL) AS /CurrentStateMsg HINT OPTIONAL</Field>
+                <Field>IF(/ReturnValue == 1, NULL, NULL) AS /ReturnValue HINT OPTIONAL</Field>
+                <Field>IF(/FunctionUpdateMsg == 1, NULL, NULL) AS /FunctionUpdateMsg HINT OPTIONAL</Field>
+                <Field>IF(/ExceptionMessage == 1, NULL, NULL) AS /ExceptionMessage HINT OPTIONAL</Field>
+            </Enrichment>
+            <Key>/Date</Key>
+            <Key>/FunctionToCall</Key>
+        </Topic>
+
+        <Topic>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>TEST_PRICE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -79,7 +135,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>HISTORIC_TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -87,7 +143,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>TEST_INSTRUMENTS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -95,7 +151,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>TEST_ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -103,7 +159,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/BBG/ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -111,7 +167,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/BBG/TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -119,7 +175,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/BBG/RFQ</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -127,7 +183,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/BBG/INSTRUMENT</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -135,7 +191,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/BBG/STATUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -143,14 +199,14 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/BBG/QUOTES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>400d</Expiration>
         </Topic>
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -158,7 +214,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -166,7 +222,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/RFQ</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -174,7 +230,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/INSTRUMENT</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -182,7 +238,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/STATUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -190,14 +246,14 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/QUOTES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>400d</Expiration>
         </Topic>
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_1</Topic>
             <Key>/EXN_ID</Key>
             <MessageType>json</MessageType>
@@ -205,7 +261,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_2</Topic>
             <Key>/EXN_ID</Key>
             <Key>/EXN_NAME</Key>
@@ -214,7 +270,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_3</Topic>
             <Key>/EXN_ID</Key>
             <Key>/EXN_NAME</Key>
@@ -224,7 +280,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>FAST_PRICE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -240,7 +296,7 @@
         </ConflatedTopic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>ORDERS_TOPIC</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -248,7 +304,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
             <Topic>COMPANIES_TOPIC</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -260,7 +316,7 @@
             <UnderlyingTopic>
                 <Join>[ORDERS_TOPIC]./Tick = [COMPANIES_TOPIC]./Tick</Join>
             </UnderlyingTopic>
-            <FileName>ampsFiles/LDN-PRIMARY/view/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/view/%n-json.sow</FileName>
             <MessageType>json</MessageType>
             <Projection>
                 <Field>[COMPANIES_TOPIC]./CompanyId</Field>
@@ -279,7 +335,7 @@
             <UnderlyingTopic>
                 <Join>[ORDERS_TOPIC]./Tick = [COMPANIES_TOPIC]./Tick</Join>
             </UnderlyingTopic>
-            <FileName>ampsFiles/LDN-PRIMARY/view/%n-json.sow</FileName>
+            <FileName>${AMPS_CONFIG_DIRECTORY}/view/%n-json.sow</FileName>
             <MessageType>json</MessageType>
             <Projection>
                 <Field>[COMPANIES_TOPIC]./CompanyId</Field>
@@ -303,7 +359,7 @@
     </SOW>
 
     <TransactionLog>
-        <JournalDirectory>ampsFiles/LDN-PRIMARY/journal</JournalDirectory>
+        <JournalDirectory>${AMPS_CONFIG_DIRECTORY}/journal</JournalDirectory>
         <PreallocatedJournalFiles>1</PreallocatedJournalFiles>
         <MinJournalSize>10MB</MinJournalSize>
         <Topic>
@@ -360,12 +416,29 @@
         </Action>
         <Action>
             <On>
-                <Module>amps-action-on-message-condition-timeout</Module>
+                <Module>amps-action-on-alert</Module>
                 <Options>
                     <MessageType>json</MessageType>
                     <Topic>JETFUEL_EXECUTE_BUS</Topic>
                     <Filter>/CurrentState = 'RequestNew' and /AmpsInstanceOwner = 'LDN-PRIMARY'</Filter>
                     <Duration>5s</Duration>
+                    <EventVariable>AMPS_ACTION_EVENT</EventVariable>
+                    <OOFEvent>ALERT_CLEARED</OOFEvent>
+                    <TimeoutEvent>ALERT_TIMEOUT</TimeoutEvent>
+                </Options>
+            </On>
+            <Do>
+                <Module>amps-action-do-execute-event</Module>
+                <Options>
+                    <EventVariable>AMPS_ACTION_EVENT</EventVariable>
+                </Options>
+            </Do>
+        </Action>
+        <Action>
+            <On>
+                <Module>amps-action-on-execute-event</Module>
+                <Options>
+                    <Event>ALERT_TIMEOUT</Event>
                 </Options>
             </On>
             <Do>
@@ -374,30 +447,11 @@
                     <MessageType>json</MessageType>
                     <Data>{{AMPS_DATA}}</Data>
                     <Value>ID_TO_USE=/ID</Value>
-                </Options>
-            </Do>
-            <Do>
-                <Module>amps-action-do-extract-values</Module>
-                <Options>
-                    <MessageType>json</MessageType>
-                    <Data>{{AMPS_DATA}}</Data>
                     <Value>CALLER_HOSTNAME=/FunctionCallerHostName</Value>
-                </Options>
-            </Do>
-            <Do>
-                <Module>amps-action-do-extract-values</Module>
-                <Options>
-                    <MessageType>json</MessageType>
-                    <Data>{{AMPS_DATA}}</Data>
                     <Value>CALLER=/FunctionInitiatorName</Value>
-                </Options>
-            </Do>
-            <Do>
-                <Module>amps-action-do-extract-values</Module>
-                <Options>
-                    <MessageType>json</MessageType>
-                    <Data>{{AMPS_DATA}}</Data>
-                    <Value>FORMATTED_DATE_TIME = STRFTIME("%Y-%m-%dT%H:%M:%S.%03f", UNIX_TIMESTAMP())</Value>
+                    <Value>FORMATTED_DATE_TIME = STRFTIME("%Y-%m-%dT%H:%M:%S.%03f", UNIX_TIMESTAMP()+
+                        TIMEZONEOFFSET())
+                    </Value>
                 </Options>
             </Do>
             <Do>
@@ -407,7 +461,10 @@
                     <Topic>JETFUEL_EXECUTE_BUS</Topic>
                     <Delta>True</Delta>
                     <UpdateOnly>True</UpdateOnly>
-                    <Data>{"ID":"{{ID_TO_USE}}","FunctionCallerHostName":"{{CALLER_HOSTNAME}}","FunctionInitiatorName":"{{CALLER}}","MsgCreationName":"LDN-PRIMARY","MsgCreationTime":"{{FORMATTED_DATE_TIME}}","CurrentState":"Timeout","CurrentStateMsg":"Function publisher that published this function is not available now."}</Data>
+                    <Data>
+                        {"ID":"{{ID_TO_USE}}","FunctionCallerHostName":"{{CALLER_HOSTNAME}}","FunctionInitiatorName":"{{CALLER}}","MsgCreationName":"LDN-PRIMARY","MsgCreationTime":"{{FORMATTED_DATE_TIME}}","CurrentState":"Timeout","CurrentStateMsg":"Function
+                        publisher that published this function is not available now."}
+                    </Data>
                 </Options>
             </Do>
         </Action>
@@ -420,11 +477,35 @@
                 <Options>
                     <MessageType>json</MessageType>
                     <Topic>JETFUEL_EXECUTE</Topic>
-                    <Filter>1=1</Filter>
+                    <Filter>/AmpsInstanceOwner = 'LDN-PRIMARY'</Filter>
+                </Options>
+            </Do>
+        </Action>
+        <Action>
+            <On>
+                <Module>amps-action-on-publish-message</Module>
+                <Options>
+                    <MessageType>json</MessageType>
+                    <MessageSource>local</MessageSource>
+                    <Topic>JETFUEL_EXECUTE_BUS</Topic>
+                </Options>
+            </On>
+            <Do>
+                <Module>amps-action-do-publish-message</Module>
+                <Options>
+                    <MessageType>json</MessageType>
+                    <Topic>JETFUEL_EXECUTE_STATS</Topic>
+                    <Data>{{AMPS_DATA}}</Data>
                 </Options>
             </Do>
         </Action>
     </Actions>
+    <Modules>
+        <Module>
+            <Library>libamps_udf_legacy_compatibility.so</Library>
+            <Name>compatibility-functions-module</Name>
+        </Module>
+    </Modules>
 
 </AMPSConfig>
 
