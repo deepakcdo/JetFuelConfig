@@ -43,7 +43,7 @@
     <Logging>
         <Target>
             <Protocol>file</Protocol>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/logs/%Y%m%d-%H%M%S-%n.log</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/logs/%Y%m%d-%H%M%S-%n.log</FileName>
             <RotationThreshold>200MB</RotationThreshold>
             <Level>info</Level>
         </Target>
@@ -52,7 +52,7 @@
     <SOW>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>JETFUEL_EXECUTE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -63,7 +63,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>JETFUEL_EXECUTE_BUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -76,7 +76,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>JETFUEL_EXECUTE_STATS</Topic>
             <MessageType>json</MessageType>
             <Expiration>365d</Expiration>
@@ -127,7 +127,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>TEST_PRICE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -135,7 +135,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>HISTORIC_TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -143,7 +143,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>TEST_INSTRUMENTS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -151,7 +151,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>TEST_ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -159,7 +159,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/BBG/ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -167,7 +167,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/BBG/TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -175,7 +175,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/BBG/RFQ</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -183,7 +183,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/BBG/INSTRUMENT</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -191,7 +191,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/BBG/STATUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -199,14 +199,14 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/BBG/QUOTES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>400d</Expiration>
         </Topic>
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -214,7 +214,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -222,7 +222,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/RFQ</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -230,7 +230,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/INSTRUMENT</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -238,7 +238,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/STATUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -246,14 +246,14 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/QUOTES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>400d</Expiration>
         </Topic>
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_1</Topic>
             <Key>/EXN_ID</Key>
             <MessageType>json</MessageType>
@@ -261,7 +261,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_2</Topic>
             <Key>/EXN_ID</Key>
             <Key>/EXN_NAME</Key>
@@ -270,7 +270,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_3</Topic>
             <Key>/EXN_ID</Key>
             <Key>/EXN_NAME</Key>
@@ -280,7 +280,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>FAST_PRICE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -296,7 +296,7 @@
         </ConflatedTopic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>ORDERS_TOPIC</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -304,7 +304,7 @@
         </Topic>
 
         <Topic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
             <Topic>COMPANIES_TOPIC</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -316,7 +316,7 @@
             <UnderlyingTopic>
                 <Join>[ORDERS_TOPIC]./Tick = [COMPANIES_TOPIC]./Tick</Join>
             </UnderlyingTopic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/view/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/view/%n-json.sow</FileName>
             <MessageType>json</MessageType>
             <Projection>
                 <Field>[COMPANIES_TOPIC]./CompanyId</Field>
@@ -335,7 +335,7 @@
             <UnderlyingTopic>
                 <Join>[ORDERS_TOPIC]./Tick = [COMPANIES_TOPIC]./Tick</Join>
             </UnderlyingTopic>
-            <FileName>${AMPS_CONFIG_DIRECTORY}/view/%n-json.sow</FileName>
+            <FileName>ampsFiles/LDN-BACKUP/view/%n-json.sow</FileName>
             <MessageType>json</MessageType>
             <Projection>
                 <Field>[COMPANIES_TOPIC]./CompanyId</Field>
@@ -359,7 +359,7 @@
     </SOW>
 
     <TransactionLog>
-        <JournalDirectory>${AMPS_CONFIG_DIRECTORY}/journal</JournalDirectory>
+        <JournalDirectory>ampsFiles/LDN-BACKUP/journal</JournalDirectory>
         <PreallocatedJournalFiles>1</PreallocatedJournalFiles>
         <MinJournalSize>10MB</MinJournalSize>
         <Topic>
