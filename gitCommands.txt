@@ -1,11 +1,13 @@
-
 git config --global user.name "Deepak"
 git config --global user.email deepakcdo@gmail.com
 git clone https://github.com/deepakcdo/JetFuelExecute.git
 git add *
-git commit -m "Updated config"
-
 git status
-git push origin master
-
 git checkout filename
+
+// pull
+git pull
+
+//commit and push
+git commit -m "Updated config"
+git push origin master
