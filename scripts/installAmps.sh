@@ -1,11 +1,12 @@
 #!/bin/bash
 
-VERSION="AMPS-5.2.2.31-Release-Linux"
-
-echo Installing $VERSION
+VERSION=5.2.2.33
+FULL_VERSION=AMPS-$VERSION-Release-Linux
+rm -rf ../$FULL_VERSION*
+echo Installing $FULL_VERSION
 cd ../
-wget http://devnull.crankuptheamps.com/releases/amps/5.2.2.31/$VERSION.tar.gz
-tar -xvf $VERSION.tar.gz
+wget http://devnull.crankuptheamps.com/releases/amps/$VERSION/$FULL_VERSION.tar.gz
+tar -xvf $FULL_VERSION.tar.gz
 rm current
-ln -s $VERSION current
+ln -s $FULL_VERSION current
 cd scripts
