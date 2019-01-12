@@ -462,8 +462,7 @@
                     <Delta>True</Delta>
                     <UpdateOnly>True</UpdateOnly>
                     <Data>
-                        {"ID":"{{ID_TO_USE}}","FunctionCallerHostName":"{{CALLER_HOSTNAME}}","FunctionInitiatorName":"{{CALLER}}","MsgCreationName":"LDN-PRIMARY","MsgCreationTime":"{{FORMATTED_DATE_TIME}}","CurrentState":"Timeout","CurrentStateMsg":"Function
-                        publisher that published this function is not available now."}
+                        {"ID":"{{ID_TO_USE}}","FunctionCallerHostName":"{{CALLER_HOSTNAME}}","FunctionInitiatorName":"{{CALLER}}","MsgCreationName":"LDN-PRIMARY","MsgCreationTime":"{{FORMATTED_DATE_TIME}}","CurrentState":"Timeout","CurrentStateMsg":"Function publisher that published this function is not available now."}
                     </Data>
                 </Options>
             </Do>

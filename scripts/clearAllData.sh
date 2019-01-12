@@ -1,2 +1,3 @@
-rm -rf ../ampsFiles
-rm ../*.tar.gz
+cd /root/JetFuelConfig
+rm -rf ampsFiles
+rm *.tar.gz
