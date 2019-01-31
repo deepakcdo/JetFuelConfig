@@ -374,7 +374,7 @@
             <Topic>
                 <MessageType>json</MessageType>
                 <Name>.*</Name>
-            </Topic>
+                <ExcludeValidation>queue_passthrough</ExcludeValidation>                    </Topic>
             <Name>LDN-PRIMARY</Name>
             <Group>LONDON</Group>
             <SyncType>async</SyncType>

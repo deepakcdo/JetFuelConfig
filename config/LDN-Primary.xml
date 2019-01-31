@@ -374,6 +374,7 @@
             <Topic>
                 <MessageType>json</MessageType>
                 <Name>.*</Name>
+                <ExcludeValidation>queue_passthrough</ExcludeValidation>
             </Topic>
             <Name>LDN-BACKUP</Name>
             <Group>LONDON</Group>
