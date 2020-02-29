@@ -295,6 +295,14 @@
             <Filter>/region = 'A'</Filter>
         </ConflatedTopic>
 
+        <ConflatedTopic>
+            <Topic>EXCHANGE_PRICE_3_CONFLATED</Topic>
+            <MessageType>json</MessageType>
+            <UnderlyingTopic>EXCHANGE_PRICE_3</UnderlyingTopic>
+            <Interval>5s</Interval>
+        </ConflatedTopic>
+
+
         <Topic>
             <FileName>ampsFiles/LDN-PRIMARY/sow/%n-json.sow</FileName>
             <Topic>ORDERS_TOPIC</Topic>
