@@ -4,6 +4,7 @@
     <Group>LONDON</Group>
     <Admin>
         <InetAddr>localhost:8198</InetAddr>
+        <FileName>ampsFiles/LDN-BACKUP/stats.db</FileName>
         <SQLTransport>websocket-any</SQLTransport>
     </Admin>
     <SOWStatsInterval>5s</SOWStatsInterval>
