@@ -319,6 +319,14 @@
             <Expiration>400d</Expiration>
         </Topic>
 
+        <Topic>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
+            <Topic>AMPS_DISCONNECTION</Topic>
+            <Key>/ID</Key>
+            <MessageType>json</MessageType>
+            <Expiration>400d</Expiration>
+        </Topic>
+
         <View>
             <Name>TOTAL_COMPANY_VOLUME_VIEW</Name>
             <UnderlyingTopic>
@@ -507,6 +515,32 @@
                 </Options>
             </Do>
         </Action>
+        <Actions>
+            <Action>
+                <On>
+                    <Module>amps-action-on-publish-message</Module>
+                    <Options>
+                        <Topic>AMPS_DISCONNECTION</Topic>
+                        <MessageType>json</MessageType>
+                    </Options>
+                </On>
+                <Do>
+                    <Module>amps-action-do-extract-values</Module>
+                    <Options>
+                        <MessageType>json</MessageType>
+                        <Data>{{AMPS_DATA}}</Data>
+                        <Value>AUTH_ID = /User</Value>
+                    </Options>
+                </Do>
+                <Do>
+                    <Module>amps-action-do-reset-entitlement</Module>
+                    <Options>
+                        <Transport>tcp-json</Transport>
+                        <AuthenticationId>{{AUTH_ID}}</AuthenticationId>
+                    </Options>
+                </Do>
+            </Action>
+        </Actions>
     </Actions>
     <Modules>
         <Module>

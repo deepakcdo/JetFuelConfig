@@ -12,3 +12,6 @@ git pull
 git add <file>
 git commit -m "Updated config"
 git push origin master
+//reset all chages
+
+git reset --hard
