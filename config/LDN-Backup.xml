@@ -12,7 +12,7 @@
 
     <Transports>
         <Transport>
-            <Name>json-tcp</Name>
+            <Name>tcp-json</Name>
             <Type>tcp</Type>
             <InetAddr>9001</InetAddr>
             <ReuseAddr>true</ReuseAddr>
