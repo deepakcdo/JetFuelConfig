@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AMPSConfig>
-    <Name>LDN-BACKUP</Name>
+    <Name>${AMPS_NAME}</Name>
     <Group>LONDON</Group>
     <Admin>
         <InetAddr>localhost:8198</InetAddr>
-        <FileName>ampsFiles/LDN-BACKUP/stats.db</FileName>
+        <FileName>ampsFiles/${AMPS_NAME}/stats.db</FileName>
         <SQLTransport>websocket-any</SQLTransport>
     </Admin>
     <SOWStatsInterval>5s</SOWStatsInterval>
@@ -44,7 +44,7 @@
     <Logging>
         <Target>
             <Protocol>file</Protocol>
-            <FileName>ampsFiles/LDN-BACKUP/logs/%Y%m%d-%H%M%S-%n.log</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/logs/%Y%m%d-%H%M%S-%n.log</FileName>
             <RotationThreshold>200MB</RotationThreshold>
             <Level>info</Level>
         </Target>
@@ -53,31 +53,31 @@
     <SOW>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>JETFUEL_EXECUTE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>600m</Expiration>
             <Enrichment>
-                <Field>'LDN-BACKUP' as /AmpsInstanceOwner</Field>
+                <Field>'${AMPS_NAME}' as /AmpsInstanceOwner</Field>
             </Enrichment>
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>JETFUEL_EXECUTE_BUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>25h</Expiration>
             <Enrichment>
                 <Field>IF(/AmpsInstanceOwner OF PREVIOUS IS NULL, IF(/CurrentState OF CURRENT == 'RequestNew',
-                    'LDN-BACKUP', /AmpsInstanceOwner OF CURRENT), /AmpsInstanceOwner OF PREVIOUS) as /AmpsInstanceOwner
+                    '${AMPS_NAME}', /AmpsInstanceOwner OF CURRENT), /AmpsInstanceOwner OF PREVIOUS) as /AmpsInstanceOwner
                 </Field>
             </Enrichment>
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>JETFUEL_EXECUTE_STATS</Topic>
             <MessageType>json</MessageType>
             <Expiration>365d</Expiration>
@@ -128,7 +128,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>TEST_PRICE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -136,7 +136,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>HISTORIC_TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -144,7 +144,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>TEST_INSTRUMENTS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -152,7 +152,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>TEST_ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -160,7 +160,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/BBG/ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -168,7 +168,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/BBG/TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -176,7 +176,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/BBG/RFQ</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -184,7 +184,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/BBG/INSTRUMENT</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -192,7 +192,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/BBG/STATUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -200,14 +200,14 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/BBG/QUOTES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>400d</Expiration>
         </Topic>
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/ORDERS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -215,7 +215,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/TRADES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -223,7 +223,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/RFQ</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -231,7 +231,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/INSTRUMENT</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -239,7 +239,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/STATUS</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -247,14 +247,14 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>/TRADEWEB/QUOTES</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
             <Expiration>400d</Expiration>
         </Topic>
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_1</Topic>
             <Key>/EXN_ID</Key>
             <MessageType>json</MessageType>
@@ -262,7 +262,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_2</Topic>
             <Key>/EXN_ID</Key>
             <Key>/EXN_NAME</Key>
@@ -271,7 +271,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>EXCHANGE_PRICE_3</Topic>
             <Key>/EXN_ID</Key>
             <Key>/EXN_NAME</Key>
@@ -281,7 +281,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>FAST_PRICE</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -304,7 +304,7 @@
         </ConflatedTopic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>ORDERS_TOPIC</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -312,7 +312,7 @@
         </Topic>
 
         <Topic>
-            <FileName>ampsFiles/LDN-BACKUP/sow/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>COMPANIES_TOPIC</Topic>
             <Key>/ID</Key>
             <MessageType>json</MessageType>
@@ -324,7 +324,7 @@
             <UnderlyingTopic>
                 <Join>[ORDERS_TOPIC]./Tick = [COMPANIES_TOPIC]./Tick</Join>
             </UnderlyingTopic>
-            <FileName>ampsFiles/LDN-BACKUP/view/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/view/%n-json.sow</FileName>
             <MessageType>json</MessageType>
             <Projection>
                 <Field>[COMPANIES_TOPIC]./CompanyId</Field>
@@ -343,7 +343,7 @@
             <UnderlyingTopic>
                 <Join>[ORDERS_TOPIC]./Tick = [COMPANIES_TOPIC]./Tick</Join>
             </UnderlyingTopic>
-            <FileName>ampsFiles/LDN-BACKUP/view/%n-json.sow</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/view/%n-json.sow</FileName>
             <MessageType>json</MessageType>
             <Projection>
                 <Field>[COMPANIES_TOPIC]./CompanyId</Field>
@@ -367,7 +367,7 @@
     </SOW>
 
     <TransactionLog>
-        <JournalDirectory>ampsFiles/LDN-BACKUP/journal</JournalDirectory>
+        <JournalDirectory>ampsFiles/${AMPS_NAME}/journal</JournalDirectory>
         <PreallocatedJournalFiles>1</PreallocatedJournalFiles>
         <MinJournalSize>10MB</MinJournalSize>
         <Topic>
@@ -382,7 +382,8 @@
             <Topic>
                 <MessageType>json</MessageType>
                 <Name>.*</Name>
-                <ExcludeValidation>queue_passthrough</ExcludeValidation>                    </Topic>
+                <ExcludeValidation>queue_passthrough</ExcludeValidation>
+            </Topic>
             <Name>LDN-PRIMARY</Name>
             <Group>LONDON</Group>
             <SyncType>async</SyncType>
@@ -428,7 +429,7 @@
                 <Options>
                     <MessageType>json</MessageType>
                     <Topic>JETFUEL_EXECUTE_BUS</Topic>
-                    <Filter>/CurrentState = 'RequestNew' and /AmpsInstanceOwner = 'LDN-BACKUP'</Filter>
+                    <Filter>/CurrentState = 'RequestNew' and /AmpsInstanceOwner = '${AMPS_NAME}'</Filter>
                     <Duration>5s</Duration>
                     <EventVariable>AMPS_ACTION_EVENT</EventVariable>
                     <OOFEvent>ALERT_CLEARED</OOFEvent>
@@ -470,7 +471,7 @@
                     <Delta>True</Delta>
                     <UpdateOnly>True</UpdateOnly>
                     <Data>
-                        {"ID":"{{ID_TO_USE}}","FunctionCallerHostName":"{{CALLER_HOSTNAME}}","FunctionInitiatorName":"{{CALLER}}","MsgCreationName":"LDN-BACKUP","MsgCreationTime":"{{FORMATTED_DATE_TIME}}","CurrentState":"Timeout","CurrentStateMsg":"Function publisher that published this function is not available now."}
+                        {"ID":"{{ID_TO_USE}}","FunctionCallerHostName":"{{CALLER_HOSTNAME}}","FunctionInitiatorName":"{{CALLER}}","MsgCreationName":"${AMPS_NAME}","MsgCreationTime":"{{FORMATTED_DATE_TIME}}","CurrentState":"Timeout","CurrentStateMsg":"Function publisher that published this function is not available now."}
                     </Data>
                 </Options>
             </Do>
@@ -484,7 +485,7 @@
                 <Options>
                     <MessageType>json</MessageType>
                     <Topic>JETFUEL_EXECUTE</Topic>
-                    <Filter>/AmpsInstanceOwner = 'LDN-BACKUP'</Filter>
+                    <Filter>/AmpsInstanceOwner = '${AMPS_NAME}'</Filter>
                 </Options>
             </Do>
         </Action>

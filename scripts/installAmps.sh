@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=5.2.4.9
+VERSION=5.3.1.31
 FULL_VERSION=AMPS-$VERSION-Release-Linux
 rm -rf ../$FULL_VERSION*
 echo Installing $FULL_VERSION
