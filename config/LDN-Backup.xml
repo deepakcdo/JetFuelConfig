@@ -325,8 +325,8 @@
             <MessageType>json</MessageType>
             <Key>/message/ClientStatus/timestamp</Key>
             <Key>/message/ClientStatus/client_name</Key>
-            <Key>/instance</Key>
-            <Expiration>7d</Expiration>
+            <Key>/AMPS_INSTANCE</Key>
+            <Expiration>5h</Expiration>
         </Topic>
 
         <View>
@@ -523,6 +523,7 @@
                 <Options>
                     <Topic>/AMPS/ClientStatus</Topic>
                     <MessageType>json</MessageType>
+                    <Filter>/ClientStatus/event in ('disconnect','logon')</Filter>
                 </Options>
             </On>
             <Do>
@@ -537,7 +538,7 @@
                 <Options>
                     <Topic>CLIENT_STATUS</Topic>
                     <MessageType>json</MessageType>
-                    <Data>{"instance":"${AMPS_NAME}","message": {{AMPS_DATA}} }</Data>
+                    <Data>{"AMPS_INSTANCE":"${AMPS_NAME}","message": {{AMPS_DATA}} }</Data>
                 </Options>
             </Do>
         </Action>
