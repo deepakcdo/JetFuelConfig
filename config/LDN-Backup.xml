@@ -323,9 +323,9 @@
             <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
             <Topic>CLIENT_STATUS</Topic>
             <MessageType>json</MessageType>
-            <Key>/message/ClientStatus/timestamp</Key>
-            <Key>/message/ClientStatus/client_name</Key>
-            <Key>/AMPS_INSTANCE</Key>
+            <Key>/ClientStatus/timestamp</Key>
+            <Key>/ClientStatus/client_name</Key>
+            <Key>/ClientStatus/connection_name</Key>
             <Expiration>5h</Expiration>
         </Topic>
 
@@ -538,7 +538,7 @@
                 <Options>
                     <Topic>CLIENT_STATUS</Topic>
                     <MessageType>json</MessageType>
-                    <Data>{"AMPS_INSTANCE":"${AMPS_NAME}","message": {{AMPS_DATA}} }</Data>
+                    <Data>{{AMPS_DATA}}</Data>
                 </Options>
             </Do>
         </Action>
