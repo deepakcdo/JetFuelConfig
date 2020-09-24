@@ -3,7 +3,7 @@
     <Name>${AMPS_NAME}</Name>
     <Group>LONDON</Group>
     <Admin>
-        <InetAddr>localhost:8198</InetAddr>
+        <InetAddr>localhost:8199</InetAddr>
         <FileName>ampsFiles/${AMPS_NAME}/stats.db</FileName>
         <SQLTransport>websocket-any</SQLTransport>
     </Admin>
@@ -14,7 +14,7 @@
         <Transport>
             <Name>tcp-json</Name>
             <Type>tcp</Type>
-            <InetAddr>9001</InetAddr>
+            <InetAddr>8001</InetAddr>
             <ReuseAddr>true</ReuseAddr>
             <MessageType>json</MessageType>
             <Protocol>amps</Protocol>
@@ -22,7 +22,7 @@
         <Transport>
             <Name>nvfix-tcp</Name>
             <Type>tcp</Type>
-            <InetAddr>9002</InetAddr>
+            <InetAddr>8002</InetAddr>
             <ReuseAddr>true</ReuseAddr>
             <MessageType>nvfix</MessageType>
             <Protocol>amps</Protocol>
@@ -30,14 +30,14 @@
         <Transport>
             <Name>amps-replication</Name>
             <Type>amps-replication</Type>
-            <InetAddr>localhost:19085</InetAddr>
+            <InetAddr>localhost:18085</InetAddr>
             <ReuseAddr>true</ReuseAddr>
         </Transport>
         <Transport>
             <Name>websocket-any</Name>
             <Protocol>websocket</Protocol>
             <Type>tcp</Type>
-            <InetAddr>9008</InetAddr>
+            <InetAddr>8008</InetAddr>
         </Transport>
     </Transports>
 
@@ -321,12 +321,10 @@
 
         <Topic>
             <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
-            <Topic>CLIENT_STATUS</Topic>
+            <Topic>AMPS_DISCONNECTION</Topic>
+            <Key>/ID</Key>
             <MessageType>json</MessageType>
-            <Key>/message/ClientStatus/timestamp</Key>
-            <Key>/message/ClientStatus/client_name</Key>
-            <Key>/instance</Key>
-            <Expiration>7d</Expiration>
+            <Expiration>400d</Expiration>
         </Topic>
 
         <View>
@@ -394,11 +392,11 @@
                 <Name>.*</Name>
                 <ExcludeValidation>queue_passthrough</ExcludeValidation>
             </Topic>
-            <Name>LDN-PRIMARY</Name>
+            <Name>LDN-BACKUP</Name>
             <Group>LONDON</Group>
             <SyncType>async</SyncType>
             <Transport>
-                <InetAddr>127.0.0.1:18085</InetAddr>
+                <InetAddr>127.0.0.1:19085</InetAddr>
                 <Type>amps-replication</Type>
             </Transport>
         </Destination>
@@ -521,7 +519,7 @@
             <On>
                 <Module>amps-action-on-publish-message</Module>
                 <Options>
-                    <Topic>/AMPS/ClientStatus</Topic>
+                    <Topic>AMPS_DISCONNECTION</Topic>
                     <MessageType>json</MessageType>
                 </Options>
             </On>
@@ -530,14 +528,14 @@
                 <Options>
                     <MessageType>json</MessageType>
                     <Data>{{AMPS_DATA}}</Data>
+                    <Value>AUTH_ID = /User</Value>
                 </Options>
             </Do>
             <Do>
-                <Module>amps-action-do-publish-message</Module>
+                <Module>amps-action-do-reset-entitlement</Module>
                 <Options>
-                    <Topic>CLIENT_STATUS</Topic>
-                    <MessageType>json</MessageType>
-                    <Data>{"instance":"${AMPS_NAME}","message": {{AMPS_DATA}} }</Data>
+                    <Transport>tcp-json</Transport>
+                    <AuthenticationId>{{AUTH_ID}}</AuthenticationId>
                 </Options>
             </Do>
         </Action>

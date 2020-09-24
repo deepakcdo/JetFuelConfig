@@ -321,10 +321,12 @@
 
         <Topic>
             <FileName>ampsFiles/${AMPS_NAME}/sow/%n-json.sow</FileName>
-            <Topic>AMPS_DISCONNECTION</Topic>
-            <Key>/ID</Key>
+            <Topic>CLIENT_STATUS</Topic>
             <MessageType>json</MessageType>
-            <Expiration>400d</Expiration>
+            <Key>/message/ClientStatus/timestamp</Key>
+            <Key>/message/ClientStatus/client_name</Key>
+            <Key>/instance</Key>
+            <Expiration>7d</Expiration>
         </Topic>
 
         <View>
@@ -519,7 +521,7 @@
             <On>
                 <Module>amps-action-on-publish-message</Module>
                 <Options>
-                    <Topic>AMPS_DISCONNECTION</Topic>
+                    <Topic>/AMPS/ClientStatus</Topic>
                     <MessageType>json</MessageType>
                 </Options>
             </On>
@@ -528,14 +530,14 @@
                 <Options>
                     <MessageType>json</MessageType>
                     <Data>{{AMPS_DATA}}</Data>
-                    <Value>AUTH_ID = /User</Value>
                 </Options>
             </Do>
             <Do>
-                <Module>amps-action-do-reset-entitlement</Module>
+                <Module>amps-action-do-publish-message</Module>
                 <Options>
-                    <Transport>tcp-json</Transport>
-                    <AuthenticationId>{{AUTH_ID}}</AuthenticationId>
+                    <Topic>CLIENT_STATUS</Topic>
+                    <MessageType>json</MessageType>
+                    <Data>{"instance":"${AMPS_NAME}","message": {{AMPS_DATA}} }</Data>
                 </Options>
             </Do>
         </Action>
