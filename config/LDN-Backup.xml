@@ -399,7 +399,7 @@
             <Group>LONDON</Group>
             <SyncType>async</SyncType>
             <Transport>
-                <InetAddr>${DREP_SERVER}:18085</InetAddr>
+                <InetAddr>${REP_SERVER}:18085</InetAddr>
                 <Type>amps-replication</Type>
             </Transport>
         </Destination>

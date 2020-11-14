@@ -8,7 +8,7 @@ services:
       - my-network
     environment:
       - AMPS_NAME=LDN-PRIMARY
-      - DREP_SERVER=backup-amps
+      - REP_SERVER=backup-amps
     ports:
       - "8199:8199"
       - "8001:8001"
@@ -26,7 +26,7 @@ services:
       - my-network
     environment:
       - AMPS_NAME=LDN-BACKUP
-      - DREP_SERVER=primary-amps
+      - REP_SERVER=primary-amps
     ports:
       - "8198:8198"
       - "9001:9001"
