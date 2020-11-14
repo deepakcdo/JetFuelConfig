@@ -1,0 +1,43 @@
+version: '2.1'
+
+services:
+  primary-amps:
+    build: .
+    mem_limit: 5120m
+    networks:
+      - my-network
+    environment:
+      - AMPS_NAME=LDN-PRIMARY
+      - DREP_SERVER=backup-amps
+    ports:
+      - "8199:8199"
+      - "8001:8001"
+      - "8002:8002"
+      - "8008:8008"
+      - "18085:18085"
+    volumes:
+      - ./config/:/config
+      - ./ampsFiles/:/ampsFiles
+    command: /AMPS/bin/ampServer /config/LDN-Primary.xml
+  backup-amps:
+    build: .
+    mem_limit: 5120m
+    networks:
+      - my-network
+    environment:
+      - AMPS_NAME=LDN-BACKUP
+      - DREP_SERVER=primary-amps
+    ports:
+      - "8198:8198"
+      - "9001:9001"
+      - "9002:9002"
+      - "9008:9008"
+      - "19085:19085"
+    volumes:
+      - ./config/:/config
+      - ./ampsFiles/:/ampsFiles
+    command: /AMPS/bin/ampServer /config/LDN-Backup.xml
+
+networks:
+  my-network:
+    name: my-network

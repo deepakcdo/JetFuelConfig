@@ -1,0 +1,24 @@
+Docker Notes
+
+//Build the container
+docker build -t amps .
+
+// Run the container
+docker run -p 8085:8085 -p 9007:9007 -p 9008:9008 amps:latest
+
+// Log into a container and hav a look
+docker exec -it -u root <containerID> bash
+
+// connect to box
+docker run --rm -it --network=my-network alpine netstat
+
+
+docker container run --rm -it --network my-network busybox
+
+Docker compose notes
+
+// build and start
+docker-compose up - d
+
+// stop
+docker-compose down

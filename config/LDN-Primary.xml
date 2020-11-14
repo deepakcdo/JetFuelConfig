@@ -30,7 +30,7 @@
         <Transport>
             <Name>amps-replication</Name>
             <Type>amps-replication</Type>
-            <InetAddr>localhost:18085</InetAddr>
+            <InetAddr>18085</InetAddr>
             <ReuseAddr>true</ReuseAddr>
         </Transport>
         <Transport>
@@ -44,7 +44,7 @@
     <Logging>
         <Target>
             <Protocol>file</Protocol>
-            <FileName>ampsFiles/${AMPS_NAME}/logs/%Y%m%d-%H%M%S-%n.log</FileName>
+            <FileName>ampsFiles/${AMPS_NAME}/logs/${AMPS_NAME}-%Y%m%d-%H%M%S-%n.log</FileName>
             <RotationThreshold>200MB</RotationThreshold>
             <Level>info</Level>
         </Target>
@@ -380,6 +380,7 @@
         <JournalDirectory>ampsFiles/${AMPS_NAME}/journal</JournalDirectory>
         <PreallocatedJournalFiles>1</PreallocatedJournalFiles>
         <MinJournalSize>10MB</MinJournalSize>
+        <O_DIRECT>disabled</O_DIRECT>
         <Topic>
             <Name>.*</Name>
             <MessageType>json</MessageType>
@@ -398,7 +399,7 @@
             <Group>LONDON</Group>
             <SyncType>async</SyncType>
             <Transport>
-                <InetAddr>127.0.0.1:19085</InetAddr>
+                <InetAddr>${DREP_SERVER}:19085</InetAddr>
                 <Type>amps-replication</Type>
             </Transport>
         </Destination>
