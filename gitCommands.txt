@@ -1,6 +1,6 @@
 git config --global user.name "Deepak"
 git config --global user.email deepakcdo@gmail.com
-git clone https://github.com/deepakcdo/JetFuelExecute.git
+git clone https://github.com/deepakcdo/JetFuelConfig.git
 git add *
 git status
 git checkout filename
