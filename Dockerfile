@@ -12,7 +12,7 @@ RUN ls -l /
 
 # expose All  tcp ports
 EXPOSE 8001
-EXPOSE 8001
+EXPOSE 8002
 EXPOSE 9001
 EXPOSE 9002
 
